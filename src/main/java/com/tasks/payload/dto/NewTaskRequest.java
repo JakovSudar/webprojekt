@@ -22,10 +22,7 @@ public class NewTaskRequest {
 	
 	@NotNull(message = "Status zadatka je obavezan")	
 	private Long statusId;
-	private List<Long> assignedUsersIDs;
-	
-	
-	
+	private List<Long> assignedUsersIDs;	
 	
 	public NewTaskRequest(String title, String description, Long priority, Timestamp endDate, Long projektId,
 			Long statusId, List<Long> assignedUsersIDs) {		
@@ -36,6 +33,9 @@ public class NewTaskRequest {
 		this.projektId = projektId;
 		this.statusId = statusId;
 		this.assignedUsersIDs = assignedUsersIDs;
+	}	
+	
+	public NewTaskRequest() {		
 	}
 	public String getTitle() {
 		return title;
