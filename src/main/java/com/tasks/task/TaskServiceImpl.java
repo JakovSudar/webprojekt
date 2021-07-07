@@ -48,8 +48,12 @@ public class TaskServiceImpl implements TaskService {
 	public TaskDto save(NewTaskRequest taskReq, UserPrincipal userPrincipal) {
 		User tempUsr = userDao.findById(userPrincipal.getId()).get();
 		Projekt tempProjekt = projektDao.getById(taskReq.getProjektId());
-		TaskStatus sts = taskStatusDao.findById(taskReq.getStatusId());		
-		Task task = new Task();		
+		TaskStatus sts = taskStatusDao.findById(taskReq.getStatusId());	
+		Task task = new Task();
+		if(taskReq.getTaskId()!=null) {
+			task = taskDao.getById(taskReq.getTaskId());
+		}
+			
 		if(taskReq.getAssignedUsersIDs() != null) {
 			List<User> dbUsers = new ArrayList<User>();			
 			for (Long  workerId : taskReq.getAssignedUsersIDs()) {			
@@ -59,7 +63,7 @@ public class TaskServiceImpl implements TaskService {
 					if(user.getAssignedProjects().stream().filter(projekt->tempProjekt.getProjektId()
 							.equals(projekt.getProjektId())).findFirst().orElse(null) != null) {
 						
-						dbUsers.add(dbUser.get());						
+						dbUsers.add(dbUser.get());		
 						
 						Notification notification = new Notification();
 						notification.setUser(user);
@@ -79,11 +83,12 @@ public class TaskServiceImpl implements TaskService {
 		task.setStatus(sts);
 		task.setDescription(taskReq.getDescription());
 		task.setPriority(taskReq.getPriority());
+		task.setEndDate(taskReq.getEndDate());
 		return new TaskToTaskDtoMapper().map(taskDao.save(task));
 	}
 
 	@Override
-	public Task update(Task task) {
+	public Task update(Task task) {		
 		return taskDao.update(task);
 	}
 
@@ -134,6 +139,11 @@ public class TaskServiceImpl implements TaskService {
 	public List<CommentDto> getTasksComments(Long taskId) {
 		Task task = taskDao.getById(taskId);
 		return new CommentToCommentDtoMapper().mapList(task.getComments());
+	}
+
+	@Override
+	public boolean orderList(List<TaskDto> taskovi) {
+		return taskDao.orderList(taskovi);
 	}
 
 }

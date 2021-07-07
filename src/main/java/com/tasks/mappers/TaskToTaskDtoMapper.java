@@ -23,8 +23,10 @@ public class TaskToTaskDtoMapper {
 	
 	public List<TaskDto> mapList(List<Task> tasks){
 		List<TaskDto> mapped = new ArrayList<TaskDto>();
-		for (Task task : tasks) {
-			mapped.add(map(task));
+		if(tasks!=null) {
+			for (Task task : tasks) {
+				mapped.add(map(task));
+			}			
 		}
 		return mapped;
 	}

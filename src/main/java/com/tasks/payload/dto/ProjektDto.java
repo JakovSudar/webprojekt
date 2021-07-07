@@ -25,6 +25,7 @@ public class ProjektDto {
 	private Timestamp createdAt;	
 	private UserDto owner;	
 	private List<UserDto> assignedUsers;
+	private List<TaskDto> tasks;
 	
 	
 	public void addAssignedUsers(List<UserDto> users) {
@@ -38,13 +39,17 @@ public class ProjektDto {
 		this.assignedUsers.add(user);
 	}
 
-	public ProjektDto(Long projektId, String naziv, Timestamp createdAt, UserDto owner, List<UserDto> assignedUsers) {
+	
+
+	public ProjektDto(Long projektId, String naziv, Timestamp createdAt, UserDto owner, List<UserDto> assignedUsers,
+			List<TaskDto> tasks) {
 		super();
 		this.projektId = projektId;
 		this.naziv = naziv;
 		this.createdAt = createdAt;
 		this.owner = owner;
 		this.assignedUsers = assignedUsers;
+		this.tasks = tasks;
 	}
 
 	public ProjektDto() {
@@ -91,6 +96,14 @@ public class ProjektDto {
 
 	public void setAssignedUsers(List<UserDto> assignedUsers) {
 		this.assignedUsers = assignedUsers;
+	}
+
+	public List<TaskDto> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<TaskDto> tasks) {
+		this.tasks = tasks;
 	}
 	
 	

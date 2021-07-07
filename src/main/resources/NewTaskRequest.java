@@ -6,21 +6,15 @@ import java.util.List;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
-
-
-
-
 public class NewTaskRequest {
-	
-	private Long taskId;
 	
 	@NotBlank(message = "Naslov zadatka je obavezan")	
 	private String title;
 	
+	@NotBlank(message = "Opis zadatka je obavezan")	
 	private String description;
 	
 	private Long priority;
-	
 	private Timestamp endDate;
 	
 	@NotNull(message = "projektId je obavezan podatak")	
@@ -28,17 +22,10 @@ public class NewTaskRequest {
 	
 	@NotNull(message = "Status zadatka je obavezan")	
 	private Long statusId;
-	
 	private List<Long> assignedUsersIDs;	
 	
-	
-	
-	public NewTaskRequest(Long taskId, @NotBlank(message = "Naslov zadatka je obavezan") String title,
-			String description, Long priority, Timestamp endDate,
-			@NotNull(message = "projektId je obavezan podatak") Long projektId,
-			@NotNull(message = "Status zadatka je obavezan") Long statusId, List<Long> assignedUsersIDs) {
-		super();
-		this.taskId = taskId;
+	public NewTaskRequest(String title, String description, Long priority, Timestamp endDate, Long projektId,
+			Long statusId, List<Long> assignedUsersIDs) {		
 		this.title = title;
 		this.description = description;
 		this.priority = priority;
@@ -46,13 +33,8 @@ public class NewTaskRequest {
 		this.projektId = projektId;
 		this.statusId = statusId;
 		this.assignedUsersIDs = assignedUsersIDs;
-	}
-	public Long getTaskId() {
-		return taskId;
-	}
-	public void setTaskId(Long taskId) {
-		this.taskId = taskId;
-	}
+	}	
+	
 	public NewTaskRequest() {		
 	}
 	public String getTitle() {

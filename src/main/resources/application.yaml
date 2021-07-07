@@ -1,8 +1,9 @@
 spring:
     datasource:
-        url: jdbc:postgresql://localhost:5432/tasks?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
+        url: jdbc:postgresql://139.59.137.235:5432/tasks?useSSL=false&serverTimezone=UTC&useLegacyDatetimeCode=false
         username: postgres
-        password: admin
+        password: mojpassword12345
+
 
     jpa:
         show-sql: true
@@ -54,3 +55,7 @@ app:
       - http://localhost:3000/oauth2/redirect
       - myandroidapp://oauth2/redirect
       - myiosapp://oauth2/redirect
+      
+      
+      
+     

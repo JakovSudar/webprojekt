@@ -18,6 +18,8 @@ public interface TaskService {
 	List<Task> getTasksForUserByProject(Long projectId, Long userId);
 	List<CommentDto> getTasksComments(Long taskId);
 	
+	boolean orderList(List<TaskDto> taskovi);
+	
 	
 	
 }

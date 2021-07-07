@@ -16,7 +16,9 @@ public class CommentRequest {
 	@NotNull(message = "Id zadatka je obavezan")
 	private Long taskId;
 	
-	
+	public CommentRequest() {
+		
+	}
 	
 	public CommentRequest(Long commentId, String comment, Long taskId) {		
 		this.commentId = commentId;

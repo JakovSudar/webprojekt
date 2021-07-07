@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.tasks.payload.dto.ProjektDto;
+import com.tasks.payload.dto.TaskDto;
 import com.tasks.payload.dto.UserDto;
 import com.tasks.projekt.Projekt;
 
@@ -18,12 +19,16 @@ public class ProjektToProjektDtoMapper {
 				tempAssigned.add(new UserToUserDtoMapper().map(user));
 			});	
 		}
+		
+		List<TaskDto> tempTasks = new TaskToTaskDtoMapper().mapList(p.getTaskovi());
+		
 			
 		mappedProjekt.setNaziv(p.getNaziv());
 		mappedProjekt.setCreatedAt(p.getCreatedAt());
 		mappedProjekt.setProjektId(p.getProjektId());
 		mappedProjekt.setAssignedUsers(tempAssigned);
 		mappedProjekt.setOwner(tempOwner);
+		mappedProjekt.setTasks(tempTasks);
 		
 		return mappedProjekt;
 	}

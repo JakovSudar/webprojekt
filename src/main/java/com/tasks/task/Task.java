@@ -57,7 +57,7 @@ public class Task {
 	private List<User> assignedUsers;
 	
 	
-	@OneToMany (mappedBy = "task" , cascade = CascadeType.REMOVE)	
+	@OneToMany (mappedBy = "task" , cascade = CascadeType.REMOVE, orphanRemoval = true)	
 	private List<Comment> comments;
 	
 	private Timestamp createdAt;

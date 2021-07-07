@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -42,7 +43,7 @@ public class Projekt {
 		@JoinTable(name ="projekt_assigns", inverseJoinColumns = @JoinColumn(name="user_id"), joinColumns = @JoinColumn(name="projekt_id"))
 		private List<User> assignedUsers;
 		
-		@OneToMany(mappedBy = "projekt")
+		@OneToMany(mappedBy = "projekt", cascade = CascadeType.REMOVE, orphanRemoval = true)
 		@JsonIgnore		
 		private List<Task> taskovi;
 		
@@ -64,6 +65,16 @@ public class Projekt {
 
 		public Projekt() {			
 			
+		}
+		
+		
+
+		public List<Task> getTaskovi() {
+			return taskovi;
+		}
+
+		public void setTaskovi(List<Task> taskovi) {
+			this.taskovi = taskovi;
 		}
 
 		public Projekt(Long projektId, String naziv, Timestamp createdAt, User owner, List<User> assignedUsers) {

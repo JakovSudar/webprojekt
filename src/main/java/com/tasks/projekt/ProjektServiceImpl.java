@@ -58,6 +58,7 @@ public class ProjektServiceImpl implements ProjektService {
 		if(temp.getOwner().getUserId() != ownerId) {
 			throw new CustomException("Niste vlasnik posla.");
 		}
+		
 		projektDao.delete(temp);		
 	}
 

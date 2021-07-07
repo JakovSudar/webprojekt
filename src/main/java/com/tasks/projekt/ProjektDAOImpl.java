@@ -6,9 +6,13 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
+import org.slf4j.LoggerFactory;
+import org.slf4j.Logger;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
+
 
 import com.tasks.user.User;
 import com.tasks.user.UserDAO;
@@ -29,6 +33,8 @@ public class ProjektDAOImpl implements ProjektDAO {
 	
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+
+	Logger logger = LoggerFactory.getLogger(ProjektDAO.class);
 
 	
 	@Override
@@ -66,6 +72,7 @@ public class ProjektDAOImpl implements ProjektDAO {
 
 	@Override
 	public void addWorkersEmails(List<String> emails,  Projekt projekt) {
+		logger.info("Dodajem radnike na projekt");
 		for(String mail : emails) {
 			Optional<User> temp = userDao.findByEmail(mail);
 			if(temp.isPresent()) {
@@ -79,8 +86,13 @@ public class ProjektDAOImpl implements ProjektDAO {
 				em.persist(newUser);
 				projekt.addAssignedUser(newUser);
 				em.persist(projekt);
-				mailService.sendMails(mail, "Dodani ste na projekt:"+projekt.getNaziv()+"\n Molimo vas kliknite na poveznicu kako bi se prijavili u aplikaciju. \n"
-						+ " http://localhost:3000/login" , "Tasks - registracija");
+				try {
+					mailService.sendMails(mail, "Dodani ste na projekt:"+projekt.getNaziv()+"\n Molimo vas kliknite na poveznicu kako bi se prijavili u aplikaciju. \n"
+							+ " http://localhost:3000/login" , "Tasks - registracija");
+				} catch (Exception e) {
+					logger.error(e.toString());
+				}
+				
 			}
 		}		
 	}
@@ -91,7 +103,12 @@ public class ProjektDAOImpl implements ProjektDAO {
 			Optional<User> temp = userDao.findByEmail(mail);
 			if(temp.isPresent()) {
 				projekt.removeAssignedUser(temp.get());
-				mailService.sendMails(mail, "Maknuti ste s projekta: " + projekt.getNaziv(), "Obavijest o izmjenama na projektu");
+				try {
+					mailService.sendMails(mail, "Maknuti ste s projekta: " + projekt.getNaziv(), "Obavijest o izmjenama na projektu");
+				} catch (Exception e) {
+					
+				}
+				
 			}
 		}		
 		

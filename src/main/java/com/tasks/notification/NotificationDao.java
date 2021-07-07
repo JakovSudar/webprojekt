@@ -7,5 +7,6 @@ public interface NotificationDao {
 	Notification save(Notification comment);
 	Notification update(Notification comment);
 	void delete(Notification comment);	
+	boolean readAll(Long userId);
 
 }

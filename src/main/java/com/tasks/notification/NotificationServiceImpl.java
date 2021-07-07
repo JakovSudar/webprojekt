@@ -5,6 +5,8 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+
 @Service
 public class NotificationServiceImpl implements NotificationService {
 
@@ -32,6 +34,11 @@ public class NotificationServiceImpl implements NotificationService {
 	public void delete(Notification notification) {
 		notificationDAO.delete(notification);
 
+	}
+
+	@Override
+	public boolean readAll(Long userId) {
+		return notificationDAO.readAll(userId);
 	}
 
 }

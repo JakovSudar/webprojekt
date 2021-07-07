@@ -47,6 +47,11 @@ public class NotificationController {
 		return notif;
 	}
 	
+	@PostMapping("readAll")
+	private boolean readAll(@CurrentUser UserPrincipal userPrincipal) throws Exception{
+		return notificationService.readAll(userPrincipal.getId());
+	}
+	
 	
 	@DeleteMapping("/{id}")	
 	private void delete(@CurrentUser UserPrincipal userPrincipal, @PathVariable int id) throws Exception {
